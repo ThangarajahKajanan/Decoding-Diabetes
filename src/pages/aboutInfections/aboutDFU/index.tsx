@@ -1,7 +1,7 @@
 import React from "react";
 import Nav from "@/components/Header";
 import Footer from "@/components/Footer";
-import Img1 from "../../../../public/assets/learnmoreDFU.webp"; // Add the appropriate image here
+import Img1 from "../../../../public/assets/learnmoreDFU.webp";
 import Image from "next/image";
 import { useRouter } from "next/router";
 

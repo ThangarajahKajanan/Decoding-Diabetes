@@ -49,64 +49,6 @@ export default function nav() {
 
     <div className="navbar fixed top-0 left-0 right-0 bg-opacity-75 bg-base-300 text-neutral z-50">
       <div className="navbar-start">
-        {/* <div className="dropdown dropdown-hover">
-          <div tabIndex={0} role="button" className="btn btn-ghost">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-
-            <li>
-              <a>Diabetic Foot Ulcer (DFU)</a>
-              <ul className="dropdown dropdown-hover">
-                <li>
-                  <a>What is DFU</a>
-                </li>
-                <li>
-                  <a>DFU Detection</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Diabetic Acanthosis Nigricans (DAN)</a>
-              <ul className="dropdown dropdown-hover">
-                <li>
-                  <a>What is DAN</a>
-                </li>
-                <li>
-                  <a>DAN Detection</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>Diabetic Nail Defects (DND)</a>
-              <ul className="dropdown dropdown-hover">
-                <li>
-                  <a>What is DND</a>
-                </li>
-                <li>
-                  <a>DND Detection</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div> */}
-
         <a className="btn btn-ghost text-xl">Decoding Diabetics</a>
         <Image
           src={header3}
@@ -141,15 +83,7 @@ export default function nav() {
                   <b>  Nail infections Detection</b>
                 </Link>
               </li>
-              <li>
-                <Link href={"/detection"}>
-                  <b> Diseases Detection</b>
-                </Link>
-              </li>
-
-              {/* <li>
-                <a>Item 3</a>
-              </li> */}
+              
             </>
           ) : (
             <></>

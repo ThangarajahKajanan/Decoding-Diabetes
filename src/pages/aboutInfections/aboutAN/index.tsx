@@ -30,7 +30,6 @@ function AcanthosisNigricansBlog() {
           <p className="text-lg text-gray-700 leading-relaxed mb-4">
             Acanthosis Nigricans is a skin condition characterized by dark, thick, and velvety patches that commonly appear in the folds and creases of the skin. In people with diabetes, these patches are often found on the neck, armpits, and groin. The condition is usually a sign of insulin resistance, which is a key feature of type 2 diabetes.
           </p>
-          {/* Replace the second image with a YouTube video */}
           <div className="w-full rounded-lg overflow-hidden shadow-md mb-6">
             <iframe
               className="w-full h-64 md:h-96"

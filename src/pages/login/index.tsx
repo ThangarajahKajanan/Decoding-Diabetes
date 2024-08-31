@@ -18,7 +18,6 @@ function login() {
   const [email, setEmail] = useState<any>();
   const [password, setPassword] = useState<any>();
 
-  //handle login and sing up
   const handlelogin = async () => {
     try {
       console.log(email, password)
@@ -132,7 +131,6 @@ function login() {
           </p>
         </div>
       </div>
-      {/* <Image src={image3} width={0} height={0} alt="Picture of the author" /> */}
     </>
   );
 }
