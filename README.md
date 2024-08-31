@@ -1,1 +1,1 @@
-# Cattle-Skin-detection
+# Diabetic-Skin-infection-detection
