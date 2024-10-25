@@ -162,7 +162,7 @@ function index() {
       )}
 
       <div className="flex w-full flex-col lg:flex-row mt-16 mb-16">
-        <div className="card rounded-box grid flex-grow place-items-center mb-4">
+        <div className="card rounded-box w-1/2 flex-grow place-items-center mb-4">
           <Image
             src={image2}
             alt="Your Company"
@@ -170,15 +170,10 @@ function index() {
           />
         </div>
         <div className="divider lg:divider-horizontal" />
-        <div className="card rounded-box grid h-70 flex-grow place-items-right text-4xl font-poppins mb-10">
-          Observe the <span className="text-red-500">health of your skin,</span>
-          <span className="text-yellow-500"> affected with diabetes </span>
-          <span className="text-blue-500"> effortlessly.</span>
-          <span className="text-green-500"> Let our AI-powered </span> web app{" "}
-          <span className="text-red-500"> detect </span>
-          <span className="text-blue-500"> and</span>
-          <span className="text-red-500"> diagnose </span>
-          <span className="text-yellow-500">diabetic skin infections </span>with ease.
+        <div className="card rounded-box w-1/2 h-70 flex-grow  place-items-center  font-poppins mb-10 mr-28 mt-10">
+          <p className="text-base  text-justify">
+            <strong className="text-xl">Understanding diabetes </strong> is crucial for maintaining your health. This condition affects how your body processes sugar, which can lead to serious complications if not managed properly. Adopting a healthy lifestyle—by eating a balanced diet, engaging in regular physical activity, and monitoring your blood sugar—can significantly reduce your risk. Stay informed about the early signs of diabetes, such as increased thirst and frequent urination, and take proactive measures to protect your health. Early detection and intervention can lead to better outcomes and help prevent long-term complications.
+          </p>
         </div>
       </div>
 

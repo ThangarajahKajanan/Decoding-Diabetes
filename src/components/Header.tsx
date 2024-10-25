@@ -49,7 +49,7 @@ export default function nav() {
 
     <div className="navbar fixed top-0 left-0 right-0 bg-opacity-75 bg-base-300 text-neutral z-50">
       <div className="navbar-start">
-        <a className="btn btn-ghost text-xl">Decoding Diabetics</a>
+        <a className="btn btn-ghost text-lg">Decoding Diabetics</a>
         <Image
           src={header3}
           width={70}
@@ -58,29 +58,34 @@ export default function nav() {
           style={{ borderRadius: 70 }}
         />
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+      <div className="navbar-center hidden lg:flex  text-gray-700 ">
+        <ul className="menu menu-horizontal  pl-16 ml-6">
           {email ? (
             <>
 
               <li>
                 <Link href={"/"}>
-                  <b> Home</b>
+                  <b className=" text-base hover:text-sky-800"> Home</b>
                 </Link>
               </li>
               <li>
                 <Link href={"/detections/acanthosisNigricans_detection"}>
-                  <b> Acanthosis Nigricans Detection</b>
+                  <b className=" text-base hover:text-sky-800"> Acanthosis Nigricans Detection</b>
                 </Link>
               </li>
               <li>
                 <Link href={"/detections/footUlcer_detection"}>
-                  <b> Foot ulcer Detection</b>
+                  <b className=" text-base hover:text-sky-800"> Foot Ulcer Detection</b>
                 </Link>
               </li>
               <li>
                 <Link href={"/detections/nailDefects_detection"}>
-                  <b>  Nail infections Detection</b>
+                  <b className=" text-base hover:text-sky-800"> Nail Infection Detection</b>
+                </Link>
+              </li>
+              <li>
+                <Link href="https://diabetic-retinopathy-phi.vercel.app/" target="_blank" rel="noopener noreferrer">
+                  <b className=" text-base hover:text-sky-800" >  Retinopathy Detection</b>
                 </Link>
               </li>
               
@@ -92,7 +97,7 @@ export default function nav() {
       </div>
 
       <div className="navbar-end" onClick={handleLogout}>
-        <a className="btn">{email ? "Log out" : "Log in"}</a>
+        <a className="btn  bg-blue-400">{email ? "Log out" : "Log in"}</a>
       </div>
     </div>
   );

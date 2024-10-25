@@ -8,7 +8,7 @@ function Index() {
   const [image, setImage] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isUploaded, setIsUploaded] = useState<boolean>(false);
-  const [input, setInput] = useState<string>("");
+  const [responseData, setResponseData] = useState<any[]>([]); // Change state to handle multiple detections
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +79,9 @@ function Index() {
           return;
         }
 
-        setInput(response.data.class);
-        setResponseMessage(response.data.class);
+        // Set response data to include both class and confidence
+        setResponseData(response.data.detections);
+        setResponseMessage(null); // Clear previous messages
       } catch (error: unknown) {
         Swal.close();
         console.error("Error uploading file:", error);
@@ -113,40 +114,112 @@ function Index() {
     }
   };
 
-
   const handleClear = () => {
     setImage(null);
     setFile(null);
     setIsUploaded(false);
+    setResponseData([]); // Clear response data
     setResponseMessage(null);
   };
 
+
+
+
+
   const renderOutput = () => {
-    switch (input) {
-      case "diabetic-foot-ulcer":
-        return (
-          <div className="border border-gray-300 rounded-lg p-4 shadow-md w-full md:w-1/2 lg:w-1/3 hover:bg-black hover:text-white transition duration-300 ease-in-out">
-            <h2 className="text-lg font-bold mb-4">You are Infected with a Diabetic Foot Ulcer</h2>
-            <div className="text-lg font-bold">Instructions:</div>
-            <ul className="list-disc pl-6">
-              <li>Reduce foods that contain sugar and sweetness</li>
-              <li>Immediatly meet your family doctor</li>
-              <li>Immediatly meet a dermatologist for make tratements for the wound</li>
-              <li>Do a diabetic checkup. (FBS - Fasting Blood Sugar)</li>
-            </ul>
+    if (responseData.length > 0) {
+      const firstDetection = responseData[0]; // Get the first detection
+      const percentage = Math.round(firstDetection.confidence * 100); // Store the confidence as a percentage
+      
+      let DiaConfidanceMasg = ""; // Initialize the message variable
+      // Define a message based on the percentage
+      if (firstDetection.class === "diabetic-foot-ulcer") {
+        if (percentage >= 90 && percentage <= 100) {
+          DiaConfidanceMasg = "The system is highly confident that your foot shows clear signs of diabetes. Immediate consultation with a healthcare provider is strongly recommended.";
+        } else if (percentage >= 80 && percentage < 90) {
+          DiaConfidanceMasg = "The system has a strong likelihood that your foot shows signs commonly associated with diabetes. A doctor's appointment is advisable to confirm this and plan next steps.";
+        } else if (percentage >= 75 && percentage < 80) {
+          DiaConfidanceMasg = "The system detects noticeable signs associated with a diabetic foot ulcer. Seeking medical advice soon would help to you.";
+        } else if (percentage >= 60 && percentage < 75) {
+          DiaConfidanceMasg = "The system suggests a moderate probability that your foot has signs that could be linked to diabetes. Further testing by a healthcare provider is recommended for clarity.";
+        } else if (percentage >= 45 && percentage < 60) {
+          DiaConfidanceMasg = "The system shows moderate confidence in detecting diabetes signs. Some markers suggest potential diabetes, though they're not as distinct. Checking with a doctor could provide reassurance.";
+        } else if (percentage < 45) {
+          DiaConfidanceMasg = "The system is not confident that you have diabetes. However, it's still a good idea to consult a healthcare professional.";
+        }
+      }
+
+
+      let NonDiaConfidanceMasg = ""; // Initialize the message variable
+
+      // Define a message based on the confidence percentage
+      if (firstDetection.class === "healthy foot") {
+        if (percentage >= 90 && percentage <= 100) {
+          NonDiaConfidanceMasg = "The system is very confident that your foot does not show signs of diabetes. Keep up the healthy lifestyle and continue routine health check-ups.";
+        } else if (percentage >= 80 && percentage < 90) {
+          NonDiaConfidanceMasg = "There is a strong likelihood that you do not have a diabetic condition. Monitoring your health regularly is still recommended.";
+        } else if (percentage >= 75 && percentage < 80) {
+          NonDiaConfidanceMasg = "The system suggests a low risk of diabetes-related conditions. Maintaining a healthy routine is advised.";
+        } else if (percentage >= 60 && percentage < 75) {
+          NonDiaConfidanceMasg = "The confidence level indicates a moderate chance that you are not at risk for diabetes, though regular check-ups are still a good practice.";
+        } else if (percentage >= 45 && percentage < 60) {
+          NonDiaConfidanceMasg = "The system suggests that diabetes is unlikely, but routine health check-ups can provide additional peace of mind.";
+        } else if (percentage < 45) {
+          NonDiaConfidanceMasg = "The system has low confidence in determining your health condition. Continue monitoring your health, and consult a healthcare professional if you have any concerns.";
+        }
+      }
+  
+
+      return (
+        <div className="border border-gray-300 rounded-lg p-4 shadow-md w-full md:w-1/2 lg:w-1/3 hover:bg-black hover:text-white transition duration-300 ease-in-out">
+          <h2 className="text-lg font-bold mb-4">Detection Results</h2>
+         
+          <div className="text-lg font-bold mb-2">
+            <span className=" text-green-600 text-xl  mr-4">{firstDetection.class}</span>: <span className=" text-gray-400  text-base">{percentage}% confidence</span>
           </div>
-        );
-      case "healthy foot":
-        return (
-          <div className="border border-gray-300 rounded-lg p-4 shadow-md w-full md:w-1/2 lg:w-1/3 hover:bg-black hover:text-white transition duration-300 ease-in-out">
-            <h2 className="text-lg font-bold mb-4 text-green-600">Healthy Information</h2>
-            <p className="text-lg">No specific medicine or nutrition advice needed for healthy condition.</p>
-          </div>
-        );
-      default:
-        return null;
+  
+          {/* Additional advice based on detection class */}
+          {firstDetection.class === "diabetic-foot-ulcer" ? (
+            <div>
+              <p className="text-red-500  font-semibold mb-2">*The system detects signs of a diabetic foot ulcer.</p>
+              <ul className="list-disc pl-6">
+                <li>Reduce foods that contain sugar and sweetness</li>
+                <li>Immediately meet your family doctor</li>
+                <li>Immediately meet a dermatologist for treatment</li>
+                <li>Do a diabetic checkup (FBS - Fasting Blood Sugar)</li>
+              </ul>
+              {/* Confidence message displayed only for diabetic foot ulcer */}
+              {firstDetection.class === "diabetic-foot-ulcer" && (
+                <div className="mt-6  text-blue-500">
+                  {DiaConfidanceMasg}
+                </div>
+              )}
+            </div>
+               
+          ) : firstDetection.class === "healthy foot" ? (
+            <div className="">
+                Your foot is healthy.
+                {/* Confidence message displayed only for diabetic foot ulcer */}
+                {firstDetection.class === "healthy foot" && (
+                <div className="mt-6  text-blue-500">
+                  {NonDiaConfidanceMasg}
+                </div>
+                )}
+            </div>
+            
+          ) : (
+            <div className="text-gray-600">No further instructions</div>
+          )}
+        </div>
+      );
     }
+  
+    return <div className="text-lg text-gray-600">No valid detections.</div>;
   };
+  
+  
+
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -216,7 +289,7 @@ function Index() {
           </div>
         )}
       </div>
-      {responseMessage && (
+      {responseData.length > 0 && (
         <div className="flex justify-center mt-8">
           {renderOutput()}
         </div>
